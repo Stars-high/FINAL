@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9D5AA8"
+    android:backgroundTint="#A63CB8"
+    tools:context=".RegisterFragment">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="REGISTER"
+        android:textColor="#F8F5F5"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/emailE"
+        android:layout_width="249dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#F1EBEB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/passE"
+        android:layout_width="255dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="Create your password"
+        android:inputType="textPassword"
+        android:textColorHint="#F8F5F5"
+        app:layout_constraintEnd_toEndOf="@+id/emailE"
+        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintStart_toStartOf="@+id/emailE"
+        app:layout_constraintTop_toBottomOf="@+id/emailE" />
+
+    <EditText
+        android:id="@+id/passcheckE"
+        android:layout_width="252dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="Re-enter password"
+        android:inputType="textPassword"
+        android:textColorHint="#EDE5E5"
+        app:layout_constraintEnd_toEndOf="@+id/passE"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passE"
+        app:layout_constraintTop_toTopOf="@+id/passE" />
+
+    <Button
+        android:id="@+id/register1B"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:backgroundTint="#99BD6F"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="REGISTER"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passcheckE" />
+
+    <EditText
+        android:id="@+id/UserNameE"
+        android:layout_width="241dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="Create User Name"
+        android:inputType="textPersonName"
+        android:textColor="#0E0606"
+        android:textColorHint="#EDE6E6"
+        app:layout_constraintEnd_toEndOf="@+id/passcheckE"
+        app:layout_constraintStart_toStartOf="@+id/passcheckE"
+        app:layout_constraintTop_toBottomOf="@+id/passcheckE" />
+
+    <!--    <EditText
+        android:id="@+id/userIdE"
+        android:layout_width="249dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="Enter a UserId"
+        android:inputType="textPersonName"
+        android:textColor="#EFEAEA"
+        android:textColorHint="#F4EFEF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+-->
+</androidx.constraintlayout.widget.ConstraintLayout>
