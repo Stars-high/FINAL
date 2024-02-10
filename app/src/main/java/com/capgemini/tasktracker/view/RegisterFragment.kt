@@ -40,14 +40,6 @@ class RegisterFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
         taskVM = ViewModelProvider(this).get(TaskViewModel::class.java)
-        /*taskVM.isUserAdded.observe(this) {
-            if (isRegisterClicked) {
-                if (!it) {
-                    Toast.makeText(requireContext(), "Username already exists", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        }*/
 
     }    override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -86,7 +78,7 @@ class RegisterFragment : Fragment() {
                 {
                     Snackbar.make(requireView(), "Enter all fields", Snackbar.LENGTH_LONG).show()
                 }
-                else if(taskVM.is_taken(username)){
+                else if(taskVM.isTaken(username)){
                     Snackbar.make(requireView(), "Username already exists", Snackbar.LENGTH_LONG).show()
                 }
                 else if (pwd1!=pwd2) {
@@ -102,8 +94,7 @@ class RegisterFragment : Fragment() {
                     val dataBundle= bundleOf("username" to username)
 
                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment,dataBundle)
-
-                    //findNavController().popBackStack(R.id.LoginFragment, false)
+                   //findNavController().popBackStack(R.id.loginFragment, false)
 
                 }
 

@@ -23,17 +23,18 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
           isUserAdded.postValue(repo.insertUser(user))
         }
     }
-    fun is_taken(username: String): Boolean{
-        if(repo.is_taken(username))
-            return true
-        else
-            return false
+    fun isTaken(username: String): Boolean{
+        return repo.isTaken(username)
     }
-    fun checkCredential(username: String, pwd: String): User{
-        return repo.getUser(username, pwd)
+    fun getUsername(username: String,pwd: String): String{
+        return repo.getUsername(username, pwd)
     }
+    fun getPassword(username: String, pwd: String): String{
+        return repo.getPassword(username, pwd)
+    }
+/*
 
-/*    fun insertTask(task: Task){
+    fun insertTask(task: Task){
         CoroutineScope(Dispatchers.IO).launch{
             repo.insertTask(task)
         }

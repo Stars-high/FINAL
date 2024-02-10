@@ -23,22 +23,18 @@ class TaskRepository(application: Application) {
 
         return isAdded
     }
-    fun is_taken(username: String): Boolean{
-        if(taskTrackerDao.is_taken(username))
-            return true
-        else
-            return false
+    fun isTaken(username: String): Boolean{
+        return taskTrackerDao.isTaken(username)
     }
-    fun getUser(username: String,pwd: String): User{
-        val data=taskTrackerDao.getUser(username,pwd)
-        if(data==null){
-            throw Exception("User does not exist.")
-        }
-        Log.d("loginFrag", "$data")
-        return data
+    fun getUsername(username: String,pwd: String): String{
+        return taskTrackerDao.getUsername(username, pwd)
+    }
+    fun getPassword(username: String, pwd: String): String{
+        return taskTrackerDao.getPassword(username, pwd)
     }
 
-/*    suspend fun insertTask(task: Task){
+/*
+    suspend fun insertTask(task: Task){
         taskTrackerDao.insertTask(task)
     }
     suspend fun updateTask(task: Task){

@@ -9,13 +9,17 @@ interface TaskTrackerDAO {
     fun insertUser(user: User)
 
     @Query("SELECT EXISTS(SELECT * FROM User WHERE username = :username)")
-    fun is_taken(username: String): Boolean
+    fun isTaken(username: String): Boolean
 
-    @Query("Select * from User where username = :username and user_password = :pwd")
-    fun getUser(username: String, pwd: String): User
+    @Query("Select username from User where username = :username and user_password = :pwd")
+    fun getUsername(username: String, pwd: String): String
+
+    @Query("Select user_password from User where username = :username and user_password = :pwd")
+    fun getPassword(username: String, pwd: String): String
 /*
     @Insert
     fun insertTask(task: Task)
+
     @Query("SELECT * FROM Task ORDER BY end_date ASC")
     fun getAllTasks(): LiveData<List<Task>>
 

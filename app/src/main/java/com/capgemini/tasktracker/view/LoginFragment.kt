@@ -100,9 +100,8 @@ class LoginFragment : Fragment() {
             if(username.isNotEmpty() && pwd.isNotEmpty())
             {
                 val dataBundle = bundleOf("username" to username, "password" to pwd)
-                if(taskVM.is_taken(username)){
-                    var user = taskVM.checkCredential(username, pwd)
-                    if (user.password == pwd) {
+                if(taskVM.isTaken(username)){
+                    if (taskVM.getUsername(username, pwd)==username && taskVM.getPassword(username, pwd)==pwd) {
                         findNavController().navigate(R.id.taskList, dataBundle)
                         Snackbar.make(requireView(), "Hi $username!", Toast.LENGTH_LONG ).show()
                     }
