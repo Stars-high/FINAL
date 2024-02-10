@@ -136,6 +136,13 @@ class TaskListActivity : AppCompatActivity() {
                     }
                 }
             }
+            R.id.logout -> {
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.clear()
+                editor.apply()
+                val i = Intent(this, MainActivity::class.java)
+                startActivity(i)
+            }
         }
 
         return super.onOptionsItemSelected(item)
