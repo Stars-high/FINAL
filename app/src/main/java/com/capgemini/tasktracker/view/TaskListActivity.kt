@@ -1,6 +1,8 @@
 package com.capgemini.tasktracker
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capgemini.tasktracker.view.TaskCreateActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.capgemini.tasktracker.model.Task
+import com.capgemini.tasktracker.view.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
@@ -22,10 +25,19 @@ class TaskListActivity : AppCompatActivity() {
     lateinit var addButton: FloatingActionButton
     lateinit var adapter:TaskAdapter
 
+    var PREFS_KEY = "prefs"
+    var UNAME_KEY = "uname"
+    var uname = ""
+
+    lateinit var sharedPreferences: SharedPreferences
+
     val taskList = mutableListOf<Task>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
+
+        sharedPreferences = getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
+        uname = sharedPreferences.getString(UNAME_KEY, null)!!
 
         addButton=findViewById(R.id.addB)
         rView = findViewById(R.id.rView)
@@ -38,7 +50,8 @@ class TaskListActivity : AppCompatActivity() {
         }
         val touchHelper = ItemTouchHelper(MyTouchHelper())
         touchHelper.attachToRecyclerView(rView)
-        populateData()}
+        populateData()
+    }
 
     fun populateData()
     {
@@ -140,11 +153,9 @@ class TaskListActivity : AppCompatActivity() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             if (direction == ItemTouchHelper.RIGHT) {
-
                 taskList.removeAt(viewHolder.adapterPosition)
                 rView.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
                 Snackbar.make(rView, "Task deleted", Snackbar.LENGTH_LONG).show()
-
             }
         }
     }
