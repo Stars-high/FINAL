@@ -23,8 +23,14 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
           isUserAdded.postValue(repo.insertUser(user))
         }
     }
-    fun getUser(username: String, pwd: String): LiveData<User>{
-        return repo.checkCredential(username, pwd)
+    fun is_taken(username: String): Boolean{
+        if(repo.is_taken(username))
+            return true
+        else
+            return false
+    }
+    fun checkCredential(username: String, pwd: String): User{
+        return repo.getUser(username, pwd)
     }
 
 /*    fun insertTask(task: Task){

@@ -5,14 +5,19 @@ import androidx.room.*
 
 @Dao
 interface TaskTrackerDAO {
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert
     fun insertUser(user: User)
 
-    @Query("Select * from user where username = :username and user_password = :pwd")
-    fun getUser(username: String, pwd: String): LiveData<User>
+    @Query("SELECT EXISTS(SELECT * FROM User WHERE username = :username)")
+    fun is_taken(username: String): Boolean
 
-/*    @Insert
+    @Query("Select * from User where username = :username and user_password = :pwd")
+    fun getUser(username: String, pwd: String): User
+/*
+    @Insert
     fun insertTask(task: Task)
+    @Query("SELECT * FROM Task ORDER BY end_date ASC")
+    fun getAllTasks(): LiveData<List<Task>>
 
     @Update
     fun updateTask(task: Task)
@@ -22,9 +27,6 @@ interface TaskTrackerDAO {
 
     @Query("DELETE FROM Task")
     fun deleteAllTasks()
-
-    @Query("SELECT * FROM Task ORDER BY end_date ASC")
-    fun getAllTasks(): LiveData<List<Task>>
 
     @Query("SELECT * FROM Task WHERE task_name LIKE :task")
     fun searchTask(searchQuery: String): LiveData<List<Task>>*/

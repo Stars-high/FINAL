@@ -99,20 +99,4 @@
         app:layout_constraintStart_toStartOf="@+id/passcheckE"
         app:layout_constraintTop_toBottomOf="@+id/passcheckE" />
 
-    <!--    <EditText
-        android:id="@+id/userIdE"
-        android:layout_width="249dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:fontFamily="monospace"
-        android:hint="Enter a UserId"
-        android:inputType="textPersonName"
-        android:textColor="#EFEAEA"
-        android:textColorHint="#F4EFEF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
--->
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,16 @@
 package com.capgemini.tasktracker
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capgemini.tasktracker.viewmodel.TaskViewModel
@@ -97,37 +100,24 @@ class LoginFragment : Fragment() {
             if(username.isNotEmpty() && pwd.isNotEmpty())
             {
                 val dataBundle = bundleOf("username" to username, "password" to pwd)
-
-                var user = taskVM.getUser(username, pwd)
-                if (user != null) {
-                    findNavController().navigate(R.id.taskList, dataBundle)
-                } else
-                    Snackbar.make(requireView(), "User does not exist. Please Sign Up!", Snackbar.LENGTH_LONG ).show()
+                if(taskVM.is_taken(username)){
+                    var user = taskVM.checkCredential(username, pwd)
+                    if (user.password == pwd) {
+                        findNavController().navigate(R.id.taskList, dataBundle)
+                        Snackbar.make(requireView(), "Hi $username!", Toast.LENGTH_LONG ).show()
+                    }
+                    else{
+                        Snackbar.make(requireView(), "Invalid Password", Toast.LENGTH_LONG ).show()
+                    }
+                }
+                else{
+                    Snackbar.make(requireView(), "Username does not exist. Please Sign Up!", Snackbar.LENGTH_LONG ).show()
+                }
             }
             else
             {
                 Snackbar.make(requireView(), "Please enter all fields", Snackbar.LENGTH_LONG).show()
             }
         }
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

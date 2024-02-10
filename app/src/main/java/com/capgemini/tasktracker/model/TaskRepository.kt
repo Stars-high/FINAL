@@ -1,6 +1,7 @@
 package com.capgemini.tasktracker.model
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -22,12 +23,18 @@ class TaskRepository(application: Application) {
 
         return isAdded
     }
-
-    fun checkCredential(username: String,pwd: String): LiveData<User>{
+    fun is_taken(username: String): Boolean{
+        if(taskTrackerDao.is_taken(username))
+            return true
+        else
+            return false
+    }
+    fun getUser(username: String,pwd: String): User{
         val data=taskTrackerDao.getUser(username,pwd)
         if(data==null){
             throw Exception("User does not exist.")
         }
+        Log.d("loginFrag", "$data")
         return data
     }
 

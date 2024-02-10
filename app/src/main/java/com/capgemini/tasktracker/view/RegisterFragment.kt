@@ -31,7 +31,7 @@ class RegisterFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var taskVM: TaskViewModel
-    var isRegisterClicked=false
+    var isUNameAllowed=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,16 +40,14 @@ class RegisterFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
         taskVM = ViewModelProvider(this).get(TaskViewModel::class.java)
-        taskVM.isUserAdded.observe(this) {
+        /*taskVM.isUserAdded.observe(this) {
             if (isRegisterClicked) {
                 if (!it) {
                     Toast.makeText(requireContext(), "Username already exists", Toast.LENGTH_SHORT)
                         .show()
                 }
-
-
             }
-        }
+        }*/
 
     }    override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -78,28 +76,30 @@ class RegisterFragment : Fragment() {
 
 
             registerButton.setOnClickListener {
-                isRegisterClicked = true
+
                 val username = UserNameEditText.text.toString()
                 val email = emailEditText.text.toString()
                 var pwd1 = password1EditText.text.toString()
                 var pwd2 = password2EditText.text.toString()
-                var userName=UserNameEditText.text.toString()
 
-                if (userName.isEmpty() || email.isEmpty() || pwd1.isEmpty() || pwd2.isEmpty())
+                if (username.isEmpty() || email.isEmpty() || pwd1.isEmpty() || pwd2.isEmpty())
                 {
                     Snackbar.make(requireView(), "Enter all fields", Snackbar.LENGTH_LONG).show()
+                }
+                else if(taskVM.is_taken(username)){
+                    Snackbar.make(requireView(), "Username already exists", Snackbar.LENGTH_LONG).show()
                 }
                 else if (pwd1!=pwd2) {
                     Snackbar.make(requireView(), "Password mismatch", Snackbar.LENGTH_LONG).show()
                 }
                 else
                 {
-                    val user = User(username = userName, email = email, password = pwd1)
+                    val user = User(username = username, email = email, password = pwd1)
                     taskVM.insertUser(user)
 
                     Toast.makeText(requireContext(), "Account Created", Toast.LENGTH_LONG).show()
 
-                    val dataBundle= bundleOf("username" to userName)
+                    val dataBundle= bundleOf("username" to username)
 
                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment,dataBundle)
 
