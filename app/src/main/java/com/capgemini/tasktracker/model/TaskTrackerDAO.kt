@@ -16,10 +16,10 @@ interface TaskTrackerDAO {
 
     @Query("Select user_password from User where username = :username and user_password = :pwd")
     fun getPassword(username: String, pwd: String): String
-/*
+
     @Insert
     fun insertTask(task: Task)
-
+/*
     @Query("SELECT * FROM Task ORDER BY end_date ASC")
     fun getAllTasks(): LiveData<List<Task>>
 

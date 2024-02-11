@@ -1,7 +1,9 @@
 package com.capgemini.tasktracker.view
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
@@ -9,31 +11,35 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
+import androidx.lifecycle.ViewModelProvider
 import com.capgemini.tasktracker.TaskListActivity
 import com.capgemini.tasktracker.R
+import com.capgemini.tasktracker.model.Task
+import com.capgemini.tasktracker.viewmodel.TaskViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 class TaskCreateActivity : AppCompatActivity() {
+
+    lateinit var buttonSave: Button
+    lateinit var editTextStartDate: EditText
+    lateinit var editTextDueDate: EditText
+    lateinit var taskVM: TaskViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_task)
-
-
-        lateinit var buttonSave: Button
-        lateinit var editTextStartDate: EditText
-        lateinit var editTextDueDate: EditText
 
         buttonSave=findViewById(R.id.buttonSave)
         editTextStartDate=findViewById(R.id.startDatetT)
         editTextDueDate=findViewById(R.id.duedateT)
 
-        buttonSave.setOnClickListener { saveTask() }
+        //initialize the viewModel
+        taskVM = ViewModelProvider(this)[TaskViewModel::class.java]
 
+        buttonSave.setOnClickListener { saveTask() }
 
         editTextStartDate.setOnClickListener{
             val c = Calendar.getInstance()
-
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
@@ -98,11 +104,15 @@ class TaskCreateActivity : AppCompatActivity() {
         lateinit var editTextDueDate: EditText
         lateinit var editTextDescription:EditText
 
+        lateinit var sharedPreferences: SharedPreferences
+        var PREFS_KEY = "prefs"
+        var UNAME_KEY = "uname"
+        var uname=""
+
         editTextTaskName = findViewById(R.id.taskNameT)
         editTextStartDate=findViewById(R.id.startDatetT)
         editTextDueDate=findViewById(R.id.duedateT)
         editTextDescription=findViewById(R.id.descT)
-
 
         val taskName = editTextTaskName.text.toString().trim()
         val startDate = editTextStartDate.text.toString().trim()
@@ -110,11 +120,15 @@ class TaskCreateActivity : AppCompatActivity() {
         val description = editTextDescription.text.toString().trim()
 
         if (validateInput(taskName, startDate, dueDate, description)) {
+            sharedPreferences = getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
+            uname = sharedPreferences.getString(UNAME_KEY, "").toString()
+
+            val task = Task(taskName, uname, startDate, dueDate, "LOW", false, description)
+            taskVM.insertTask(task)
             showSnackbar("Task saved successfully")
 
-
             // you can navigate
-startActivity(Intent(this, TaskListActivity::class.java))
+            startActivity(Intent(this, TaskListActivity::class.java))
         }
     }
 
@@ -143,6 +157,4 @@ startActivity(Intent(this, TaskListActivity::class.java))
     private fun showSnackbar(message: String) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
     }
-
-
 }

@@ -5,8 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-//@Database(entities=[User::class, Task::class], version = 1)
-@Database(entities=[User::class], version = 1)
+@Database(entities=[User::class, Task::class], version = 2)
 abstract class TaskTrackerDB : RoomDatabase(){
     abstract fun taskTrackerDAO(): TaskTrackerDAO
 
@@ -16,7 +15,7 @@ abstract class TaskTrackerDB : RoomDatabase(){
             return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    TaskTrackerDB::class.java, "task_tracker_db").allowMainThreadQueries().build()
+                    TaskTrackerDB::class.java, "task_tracker_db").fallbackToDestructiveMigration().allowMainThreadQueries().build()
                 INSTANCE = instance
                 instance
             }

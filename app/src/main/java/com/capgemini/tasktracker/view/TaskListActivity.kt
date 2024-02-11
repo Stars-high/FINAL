@@ -55,14 +55,14 @@ class TaskListActivity : AppCompatActivity() {
 
     fun populateData()
     {
-        val t1 = Task("Eat", "", LocalDate.parse("2024-01-01"),
-            LocalDate.parse("2024-12-01"),"high",true, "")
+        val t1 = Task("Eat", "", "2024-01-01",
+            "2024-12-01","high",true, "")
         taskList.add(t1)
-        val t2 = Task("Play","", LocalDate.parse("2018-01-01"),
-            LocalDate.parse("2018-12-01"),"low",true,"")
+        val t2 = Task("Play","", "2018-01-01",
+            "2018-12-01","low",true,"")
         taskList.add(t2)
-        val t3 = Task("dance","", LocalDate.parse("2018-04-11"),
-            LocalDate.parse("2018-06-11"),"low",true,"")
+        val t3 = Task("dance","", "2018-04-11",
+            "2018-06-11","low",true,"")
         taskList.add(t3)
     }
 

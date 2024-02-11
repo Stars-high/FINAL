@@ -2,9 +2,7 @@ package com.capgemini.tasktracker.model
 
 import androidx.room.*
 import java.time.LocalDate
-
 @TypeConverters(DateConverter::class)
-
 @Entity(tableName="User")
 data class User(
     @PrimaryKey
@@ -18,7 +16,7 @@ data class User(
     val password: String
 )
 
-@Entity(tableName = "Task", foreignKeys = [ForeignKey(entity = User::class, childColumns = ["username"], parentColumns = ["task_name"])])
+@Entity(tableName = "Task", foreignKeys = [ForeignKey(entity = User::class, parentColumns = ["username"], childColumns = ["task_name"])])
 data class Task(
     @PrimaryKey
     @ColumnInfo("task_name")
@@ -28,16 +26,16 @@ data class Task(
     val username: String,
 
     @ColumnInfo("task_start_date")
-    var startDate: LocalDate,
+    var startDate: String,
 
     @ColumnInfo("task_end_date")
-    var endDate: LocalDate,
+    var endDate: String,
 
     @ColumnInfo("task_priority")
-    var priority: String,
+    var priority: String = "LOW",
 
     @ColumnInfo("task_status")
-    var status: Boolean,
+    var status: Boolean = false,
 
     @ColumnInfo("task_description")
     var description: String                    //later change it to checkpoints

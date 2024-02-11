@@ -32,13 +32,13 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     fun getPassword(username: String, pwd: String): String{
         return repo.getPassword(username, pwd)
     }
-/*
+
     fun insertTask(task: Task){
         CoroutineScope(Dispatchers.IO).launch{
             repo.insertTask(task)
         }
     }
-    fun updateTask(task: Task){
+/*    fun updateTask(task: Task){
         CoroutineScope(Dispatchers.IO).launch{
             repo.updateTask(task)
         }

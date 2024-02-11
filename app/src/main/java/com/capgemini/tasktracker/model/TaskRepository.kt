@@ -33,11 +33,10 @@ class TaskRepository(application: Application) {
         return taskTrackerDao.getPassword(username, pwd)
     }
 
-/*
     suspend fun insertTask(task: Task){
         taskTrackerDao.insertTask(task)
     }
-    suspend fun updateTask(task: Task){
+/*    suspend fun updateTask(task: Task){
         taskTrackerDao.updateTask(task)
     }
     suspend fun deleteTask(task: Task){
