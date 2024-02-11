@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6CAA0"
+    android:background="@color/white"
     tools:context=".TaskListActivity">
 
     <TextView
@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="#F1CCC1"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="TASK LIST"
+        android:fontFamily="@font/open_sans_light"
+        android:text="Task List"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -44,6 +44,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="31dp"
         android:clickable="true"
+        app:backgroundTint="#F3F0F1"
         app:layout_constraintBottom_toBottomOf="@+id/rView"
         app:layout_constraintEnd_toEndOf="@+id/rView"
         app:srcCompat="@android:drawable/ic_input_add" />
