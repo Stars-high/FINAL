@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.capgemini.tasktracker.view.TaskCreateActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.capgemini.tasktracker.model.Task
 import com.capgemini.tasktracker.view.MainActivity
+import com.capgemini.tasktracker.viewmodel.TaskViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.time.LocalDate
 
@@ -30,41 +32,43 @@ class TaskListActivity : AppCompatActivity() {
     var uname = ""
 
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var taskVM: TaskViewModel
 
     val taskList = mutableListOf<Task>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
+        taskVM = ViewModelProvider(this)[TaskViewModel::class.java]
 
         sharedPreferences = getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
         uname = sharedPreferences.getString(UNAME_KEY, null)!!
 
         addButton=findViewById(R.id.addB)
         rView = findViewById(R.id.rView)
+
         rView.layoutManager = LinearLayoutManager(this)
-        rView.adapter = TaskAdapter(taskList) {
-            Toast.makeText(this, "Selected task:${taskList[it].taskName}", Toast.LENGTH_LONG).show()
+        rView.adapter = TaskAdapter(taskList)
+
+        val touchHelper = ItemTouchHelper(MyTouchHelper())
+        touchHelper.attachToRecyclerView(rView)
+
+
+        taskVM.taskList.observe(this){
+            // executed as and when data is changed
+            // and activity is in active state
+            Log.d("MainActivity", "list observer called")
+            rView.adapter = TaskAdapter(it)
         }
+
+
+
         addButton.setOnClickListener{
            startActivity(Intent(this,TaskCreateActivity::class.java))
         }
-        val touchHelper = ItemTouchHelper(MyTouchHelper())
-        touchHelper.attachToRecyclerView(rView)
-        populateData()
+
+
     }
 
-    fun populateData()
-    {
-        val t1 = Task("Eat", "", "2024-01-01",
-            "2024-12-01","high",true, "")
-        taskList.add(t1)
-        val t2 = Task("Play","", "2018-01-01",
-            "2018-12-01","low",true,"")
-        taskList.add(t2)
-        val t3 = Task("dance","", "2018-04-11",
-            "2018-06-11","low",true,"")
-        taskList.add(t3)
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.filterandsort_menu, menu)
@@ -79,9 +83,9 @@ class TaskListActivity : AppCompatActivity() {
                     it.taskName.startsWith(query ?: "Not Found", true)
                 }
                 if (taskList.isNotEmpty()) {
-                    rView.adapter = TaskAdapter(filteredList as MutableList<Task>) {
+                    rView.adapter = TaskAdapter(filteredList )
 
-                    }
+
                 }
                 return true
             }
@@ -92,18 +96,14 @@ class TaskListActivity : AppCompatActivity() {
                     it.taskName.startsWith(query ?: "Not Found", true)
                 }
                 if (taskList.isNotEmpty()) {
-                    rView.adapter = TaskAdapter(filteredList as MutableList<Task>) {
-
-                    }
+                    rView.adapter = TaskAdapter(filteredList )
                 }
                 return true
             }
         }
         searchV.setOnQueryTextListener(myTextListener)
         searchV.setOnCloseListener {
-            rView.adapter =TaskAdapter(taskList) {
-
-            }
+            rView.adapter =TaskAdapter(taskList)
             false
         }
         return super.onCreateOptionsMenu(menu)
@@ -121,9 +121,7 @@ class TaskListActivity : AppCompatActivity() {
                     it.priority=="high"
                 }
                 if (taskList.isNotEmpty()) {
-                    rView.adapter = TaskAdapter(filteredList as MutableList<Task>) {
-
-                    }
+                    rView.adapter = TaskAdapter(filteredList )
                 }
             }
             R.id.priority_item_low->{
@@ -131,9 +129,7 @@ class TaskListActivity : AppCompatActivity() {
                     it.priority=="low"
                 }
                 if (taskList.isNotEmpty()) {
-                    rView.adapter = TaskAdapter(filteredList as MutableList<Task>) {
-
-                    }
+                    rView.adapter = TaskAdapter(filteredList)
                 }
             }
             R.id.logout -> {
@@ -160,8 +156,9 @@ class TaskListActivity : AppCompatActivity() {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             if (direction == ItemTouchHelper.RIGHT) {
-                taskList.removeAt(viewHolder.adapterPosition)
-                rView.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
+
+                taskVM.deleteTask(viewHolder.adapterPosition)
+               // rView.adapter?.notifyItemRemoved(viewHolder.adapterPosition)
                 Snackbar.make(rView, "Task deleted", Snackbar.LENGTH_LONG).show()
             }
         }

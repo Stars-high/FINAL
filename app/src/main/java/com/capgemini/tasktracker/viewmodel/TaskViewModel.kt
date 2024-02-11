@@ -5,6 +5,7 @@ import android.app.DownloadManager.Query
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.capgemini.tasktracker.model.Task
 import com.capgemini.tasktracker.model.TaskRepository
 import com.capgemini.tasktracker.model.User
@@ -14,38 +15,52 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel(application: Application): AndroidViewModel(application) {
     //owns repository
-    private val repo =TaskRepository(application)
- // var taskList: MutableLiveData<List<Task>> = repo.allTasks as MutableLiveData<List<Task>>
-    var isUserAdded= MutableLiveData<Boolean>(false)
+    private val repo = TaskRepository(application)
 
-    fun insertUser(user: User){
-        CoroutineScope(Dispatchers.IO).launch{
-          isUserAdded.postValue(repo.insertUser(user))
+    // var taskList: MutableLiveData<List<Task>> = repo.allTasks as MutableLiveData<List<Task>>
+    var isUserAdded = MutableLiveData<Boolean>(false)
+    var taskList = repo.getTasks()
+
+
+    fun insertUser(user: User) {
+        CoroutineScope(Dispatchers.IO).launch {
+            isUserAdded.postValue(repo.insertUser(user))
         }
     }
-    fun isTaken(username: String): Boolean{
+
+    fun isTaken(username: String): Boolean {
         return repo.isTaken(username)
     }
-    fun getUsername(username: String,pwd: String): String{
+
+    fun getUsername(username: String, pwd: String): String {
         return repo.getUsername(username, pwd)
     }
-    fun getPassword(username: String, pwd: String): String{
+
+    fun getPassword(username: String, pwd: String): String {
         return repo.getPassword(username, pwd)
     }
 
-    fun insertTask(task: Task){
-        CoroutineScope(Dispatchers.IO).launch{
+    fun insertTask(task: Task) {
+        CoroutineScope(Dispatchers.IO).launch {
             repo.insertTask(task)
         }
     }
+
+    fun deleteTask(position: Int) {
+
+        val taskToDelete = taskList.value!!.get(position)
+        viewModelScope.launch(Dispatchers.Default) {
+            repo.deleteTask(taskToDelete)
+        }
+    }
+}
+
 /*    fun updateTask(task: Task){
         CoroutineScope(Dispatchers.IO).launch{
             repo.updateTask(task)
         }
     }
-    fun deleteTask(task: Task){
-        CoroutineScope(Dispatchers.IO).launch{
-            repo.deleteTask(task)
+
         }
     }
     fun searchTask(query: String): LiveData<List<Task>>{
@@ -54,8 +69,8 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     fun getAllTasks(): MutableLiveData<List<Task>>{
         return taskList
     }*/
-}
-object DataObject {
+
+/*object DataObject {
     var listData= mutableListOf<Task>()
 
     fun getData(pos:Int):Task{
@@ -69,4 +84,5 @@ object DataObject {
         listData[pos].priority=priority
         listData[pos].description=desc
     }
-}
+
+ */

@@ -36,6 +36,19 @@ class TaskRepository(application: Application) {
     suspend fun insertTask(task: Task){
         taskTrackerDao.insertTask(task)
     }
+
+    fun getTasks(): LiveData<List<Task>> {
+
+        return taskTrackerDao.getAllTasks()
+
+    }
+
+
+
+    suspend fun deleteTask(task: Task){
+        taskTrackerDao.deleteTask(task)}
+
+
 /*    suspend fun updateTask(task: Task){
         taskTrackerDao.updateTask(task)
     }

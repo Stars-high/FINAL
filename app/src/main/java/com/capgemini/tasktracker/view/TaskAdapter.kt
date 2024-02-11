@@ -16,21 +16,16 @@ import com.capgemini.tasktracker.model.Task
 import com.capgemini.tasktracker.view.TaskDisplayActivity
 import java.time.LocalDate
 
-class TaskAdapter(val listOfTask: MutableList<Task>, val onSelection:(Int)->Unit) :
+class TaskAdapter(val taskList: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
-        inner class TaskHolder(view: View): RecyclerView.ViewHolder(view)
-        {
-            init{view.setOnClickListener{
-                Log.d("taskAdapter","Position:${this.adapterPosition}")
-                onSelection(adapterPosition)
-            }
-        }
+    inner class TaskHolder(inflated: View): RecyclerView.ViewHolder(inflated)
 
-        val taskNameTextView: TextView =view.findViewById(R.id.taskNameT)
-        val priorityTextView: TextView =view.findViewById(R.id.priorityT)
-        val endDateTextView:TextView=view.findViewById(R.id.endDateT)
+    {
+        var taskNameTextView: TextView =inflated.findViewById(R.id.taskNameT)
+        var priorityTextView: TextView =inflated.findViewById(R.id.priorityT)
+        var endDateTextView:TextView=inflated.findViewById(R.id.endDateT)
 
-        val statusCheckBox:CheckBox=view.findViewById(R.id.checkBox)
+        var statusCheckBox:CheckBox=inflated.findViewById(R.id.checkBox)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
@@ -39,12 +34,12 @@ class TaskAdapter(val listOfTask: MutableList<Task>, val onSelection:(Int)->Unit
     }
 
     override fun getItemCount(): Int {
-        Log.d("TaskAdapter","${listOfTask.size}")
-        return listOfTask.size
+        Log.d("TaskAdapter","${taskList.size}")
+        return taskList.size
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        val task=listOfTask[position]
+        val task=taskList[position]
 
         holder.taskNameTextView.text=task.taskName
         holder.priorityTextView.text=task.priority
@@ -62,8 +57,11 @@ class TaskAdapter(val listOfTask: MutableList<Task>, val onSelection:(Int)->Unit
         }
     }
     private fun changeColour(checked: Boolean,holder: TaskHolder) {
-        if (checked == true)
+        if (checked == true) {
             (holder.itemView as CardView).setCardBackgroundColor(Color.LTGRAY)
+
+
+        }
         else
             (holder.itemView as CardView).setCardBackgroundColor(Color.WHITE)
     }

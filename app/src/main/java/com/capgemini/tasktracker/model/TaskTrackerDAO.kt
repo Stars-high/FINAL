@@ -19,6 +19,13 @@ interface TaskTrackerDAO {
 
     @Insert
     fun insertTask(task: Task)
+
+    @Query("select * from task")
+    fun getAllTasks(): LiveData<List<Task>>
+
+
+    @Delete
+    fun deleteTask(task: Task)
 /*
     @Query("SELECT * FROM Task ORDER BY end_date ASC")
     fun getAllTasks(): LiveData<List<Task>>

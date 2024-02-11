@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.capgemini.tasktracker.R
 import com.capgemini.tasktracker.TaskListActivity
-import com.capgemini.tasktracker.viewmodel.DataObject
+//import com.capgemini.tasktracker.viewmodel.DataObject
 
 class TaskDisplayActivity : AppCompatActivity() {
 /*

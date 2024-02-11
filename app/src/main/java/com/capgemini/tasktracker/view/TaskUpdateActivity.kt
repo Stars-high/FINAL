@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.capgemini.tasktracker.R
 import com.capgemini.tasktracker.TaskListActivity
-import com.capgemini.tasktracker.viewmodel.DataObject
+//import com.capgemini.tasktracker.viewmodel.DataObject
 
 class TaskUpdateActivity : AppCompatActivity() {
 /*    lateinit var titleText:TextView
