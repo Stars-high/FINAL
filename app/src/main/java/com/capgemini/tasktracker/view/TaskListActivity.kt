@@ -113,11 +113,13 @@ class TaskListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.date_item -> {
+           /* R.id.date_item -> {
                 //sort by date
                 taskList.sortBy { it.endDate }
                 rView.adapter?.notifyDataSetChanged()
             }
+
+            */
             R.id.priority_item_high->{
                /* val filteredList = taskList.filter {
                     it.priority=="high"

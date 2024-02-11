@@ -15,9 +15,6 @@
         android:id="@+id/priority_item_low"
         android:title="Sort by LowPriority" />
     <item
-        android:id="@+id/date_item"
-        android:title="Sort by date" />
-    <item
         android:id="@+id/logout"
         android:title="Logout" />
 </menu>
