@@ -26,7 +26,15 @@ interface TaskTrackerDAO {
 
     @Delete
     fun deleteTask(task: Task)
+
+
+    @Query("SELECT * from  Task WHERE task_priority= 'HIGH'")
+    fun getHighPriorityTasks():LiveData<List<Task>>
 /*
+
+@Query("SELECT * FROM Task WHERE task_name LIKE :task")
+    fun searchTask(searchQuery: String): LiveData<List<Task>>
+
     @Query("SELECT * FROM Task ORDER BY end_date ASC")
     fun getAllTasks(): LiveData<List<Task>>
 

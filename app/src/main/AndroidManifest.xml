@@ -24,6 +24,10 @@
         <activity android:name="com.capgemini.tasktracker.view.TaskDisplayActivity" />
         <activity android:name="com.capgemini.tasktracker.TaskListActivity" />
         <activity android:name="com.capgemini.tasktracker.view.TaskUpdateActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

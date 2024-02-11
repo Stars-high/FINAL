@@ -11,6 +11,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.lifecycle.ViewModelProvider
 import com.capgemini.tasktracker.TaskListActivity
 import com.capgemini.tasktracker.R
@@ -25,6 +27,8 @@ class TaskCreateActivity : AppCompatActivity() {
     lateinit var editTextStartDate: EditText
     lateinit var editTextDueDate: EditText
     lateinit var taskVM: TaskViewModel
+    lateinit var priority:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_task)
@@ -103,6 +107,9 @@ class TaskCreateActivity : AppCompatActivity() {
         lateinit var editTextStartDate: EditText
         lateinit var editTextDueDate: EditText
         lateinit var editTextDescription:EditText
+        lateinit var radioGroup:RadioGroup
+
+
 
         lateinit var sharedPreferences: SharedPreferences
         var PREFS_KEY = "prefs"
@@ -113,17 +120,39 @@ class TaskCreateActivity : AppCompatActivity() {
         editTextStartDate=findViewById(R.id.startDatetT)
         editTextDueDate=findViewById(R.id.duedateT)
         editTextDescription=findViewById(R.id.descT)
+        radioGroup=findViewById(R.id.radioGroup)
+
+
+        /*radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val selectedRadioButton = findViewById<RadioButton>(checkedId)
+           var priority = selectedRadioButton.tag.toString()
+
+
+        }
+        *
+         */
+
+        val selectedradioButtonId=radioGroup.checkedRadioButtonId
+        if(selectedradioButtonId !=-1){
+            val selectedRadioButton=findViewById<RadioButton>(selectedradioButtonId)
+             priority=selectedRadioButton.text.toString()
+        }else{
+            showSnackbar("Please select priority")
+        }
+
 
         val taskName = editTextTaskName.text.toString().trim()
         val startDate = editTextStartDate.text.toString().trim()
         val dueDate = editTextDueDate.text.toString().trim()
         val description = editTextDescription.text.toString().trim()
 
-        if (validateInput(taskName, startDate, dueDate, description)) {
+
+
+        if (validateInput(taskName, startDate, dueDate,priority,description)) {
             sharedPreferences = getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
             uname = sharedPreferences.getString(UNAME_KEY, "").toString()
 
-            val task = Task(taskName, uname, startDate, dueDate, "LOW", false, description)
+            val task = Task(taskName, uname, startDate, dueDate, priority, false, description)
             taskVM.insertTask(task)
             showSnackbar("Task saved successfully")
 
@@ -132,7 +161,7 @@ class TaskCreateActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateInput(taskName: String, startDate: String, dueDate: String, description: String): Boolean {
+    private fun validateInput(taskName: String, startDate: String, dueDate: String,priority:String, description: String): Boolean {
         return when {
             taskName.isEmpty() -> {
                 showSnackbar("Task name cannot be empty")
@@ -146,10 +175,12 @@ class TaskCreateActivity : AppCompatActivity() {
                 showSnackbar("Due date cannot be empty")
                 false
             }
+
             description.isEmpty() -> {
                 showSnackbar("Description cannot be empty")
                 false
             }
+
             else -> true
         }
     }

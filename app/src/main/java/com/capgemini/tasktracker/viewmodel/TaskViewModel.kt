@@ -1,7 +1,6 @@
 package com.capgemini.tasktracker.viewmodel
 
 import android.app.Application
-import android.app.DownloadManager.Query
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +19,7 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     // var taskList: MutableLiveData<List<Task>> = repo.allTasks as MutableLiveData<List<Task>>
     var isUserAdded = MutableLiveData<Boolean>(false)
     var taskList = repo.getTasks()
+
 
 
     fun insertUser(user: User) {
@@ -50,12 +50,24 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
 
         val taskToDelete = taskList.value!!.get(position)
         viewModelScope.launch(Dispatchers.Default) {
-            repo.deleteTask(taskToDelete)
+           repo.deleteTask(taskToDelete)
         }
     }
+
+
+
+    var highPriorityTasks: LiveData<List<Task>> = repo.highPriorityTasks()
+
+
+
+
 }
 
-/*    fun updateTask(task: Task){
+/*fun searchTask(query: String): LiveData<List<Task>>{
+        return repo.searchTask(query)
+    }
+
+ fun updateTask(task: Task){
         CoroutineScope(Dispatchers.IO).launch{
             repo.updateTask(task)
         }

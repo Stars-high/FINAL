@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.capgemini.tasktracker.R
 import com.capgemini.tasktracker.model.Task
 import com.capgemini.tasktracker.view.TaskDisplayActivity
 import java.time.LocalDate

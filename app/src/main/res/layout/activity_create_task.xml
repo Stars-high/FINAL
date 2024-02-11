@@ -82,17 +82,17 @@
       app:layout_constraintTop_toBottomOf="@+id/textView12">
 
     <RadioButton
-        android:id="@+id/radioButton2"
+        android:id="@+id/radioButton1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="High"
+        android:text="HIGH"
         android:textSize="20sp" />
 
     <RadioButton
-        android:id="@+id/radioButton"
+        android:id="@+id/radioButton2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Low"
+        android:text="LOW"
         android:textSize="20sp" />
   </RadioGroup>
 

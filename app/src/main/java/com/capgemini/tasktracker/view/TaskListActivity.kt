@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +19,6 @@ import com.capgemini.tasktracker.model.Task
 import com.capgemini.tasktracker.view.MainActivity
 import com.capgemini.tasktracker.viewmodel.TaskViewModel
 import com.google.android.material.snackbar.Snackbar
-import java.time.LocalDate
 
 class TaskListActivity : AppCompatActivity() {
     lateinit var rView: RecyclerView
@@ -109,6 +107,10 @@ class TaskListActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+
+
+
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.date_item -> {
@@ -117,11 +119,16 @@ class TaskListActivity : AppCompatActivity() {
                 rView.adapter?.notifyDataSetChanged()
             }
             R.id.priority_item_high->{
-                val filteredList = taskList.filter {
+               /* val filteredList = taskList.filter {
                     it.priority=="high"
                 }
+                */
+
+
                 if (taskList.isNotEmpty()) {
-                    rView.adapter = TaskAdapter(filteredList )
+                    taskVM.highPriorityTasks
+                        .observe(this,{ highPriorityTasks->rView.adapter = TaskAdapter(taskList )})
+
                 }
             }
             R.id.priority_item_low->{
