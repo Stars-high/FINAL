@@ -1,7 +1,6 @@
 package com.capgemini.tasktracker.model
 
 import androidx.room.*
-import java.time.LocalDate
 @TypeConverters(DateConverter::class)
 @Entity(tableName="User")
 data class User(
@@ -16,7 +15,7 @@ data class User(
     val password: String
 )
 
-@Entity(tableName = "Task", foreignKeys = [ForeignKey(entity = User::class, parentColumns = ["username"], childColumns = ["task_name"])])
+@Entity(tableName = "Task", foreignKeys = [ForeignKey(entity = User::class, parentColumns = ["username"], childColumns = ["username"])])
 data class Task(
     @PrimaryKey
     @ColumnInfo("task_name")
