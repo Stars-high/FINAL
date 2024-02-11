@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.capgemini.tasktracker.R
@@ -74,18 +75,55 @@ class RegisterFragment : Fragment() {
                 var pwd1 = password1EditText.text.toString()
                 var pwd2 = password2EditText.text.toString()
 
-                if (username.isEmpty() || email.isEmpty() || pwd1.isEmpty() || pwd2.isEmpty())
-                {
-                    Snackbar.make(requireView(), "Enter all fields", Snackbar.LENGTH_LONG).show()
+            when{
+                email.isEmpty() -> {
+                    Snackbar.make(requireView(), "Enter email address", Snackbar.LENGTH_LONG).show()
+
                 }
-                else if(taskVM.isTaken(username)){
-                    Snackbar.make(requireView(), "Username already exists", Snackbar.LENGTH_LONG).show()
+                !email.endsWith("@gmail.com",true)->{
+
+                        Snackbar.make(requireView(), "Enter valid email address", Snackbar.LENGTH_LONG).show()
                 }
-                else if (pwd1!=pwd2) {
+                pwd1.isEmpty() -> {
+                    Snackbar.make(requireView(), "Enter password", Snackbar.LENGTH_LONG).show()
+                }
+                !pwd1.any{it in "1234567890"}->{
+                    Snackbar.make(requireView(), "Password must contain atleast one digit", Snackbar.LENGTH_LONG).show()
+
+                }
+                !pwd1.any{it in "!@#$%^&*()_+<>"}->{
+
+                    Snackbar.make(requireView(), "Password must contain atleast one special character", Snackbar.LENGTH_LONG).show()
+
+                }
+                !pwd1.any{it in "a..z"}->{
+
+                    Snackbar.make(requireView(), "Password must contain atleast one lowercase", Snackbar.LENGTH_LONG).show()
+                }
+                !pwd1.any{it in "A..Z"}->{
+
+                    Snackbar.make(requireView(), "Password must contain atleast one uppercase", Snackbar.LENGTH_LONG).show()
+                }
+                pwd1.length<8->{
+
+                    Snackbar.make(requireView(), "Password must contain atleast 8 character", Snackbar.LENGTH_LONG).show()
+                }
+                pwd2.isEmpty() -> {
+                    Snackbar.make(requireView(), "Re-Enter password", Snackbar.LENGTH_LONG).show()
+
+                }
+                pwd1!=pwd2->{
                     Snackbar.make(requireView(), "Password mismatch", Snackbar.LENGTH_LONG).show()
                 }
-                else
-                {
+                username.isEmpty() -> {
+                    Snackbar.make(requireView(), "Enter username", Snackbar.LENGTH_LONG).show()
+
+                }
+                taskVM.isTaken(username)->{
+                    Snackbar.make(requireView(), "Username already exists", Snackbar.LENGTH_LONG).show()
+                }
+
+                else ->{
                     val user = User(username = username, email = email, password = pwd1)
                     taskVM.insertUser(user)
 
@@ -93,13 +131,11 @@ class RegisterFragment : Fragment() {
 
                     val dataBundle= bundleOf("username" to username)
 
-                   findNavController().navigate(R.id.action_registerFragment_to_loginFragment,dataBundle)
-                   //findNavController().popBackStack(R.id.loginFragment, false)
-
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment,dataBundle)
+                    //findNavController().popBackStack(R.id.loginFragment, false)
                 }
 
-
-
-        }
-
-    }}
+            }
+            }
+    }
+}
