@@ -28,9 +28,9 @@ class TaskRepository(application: Application) {
     fun isTaken(username: String): Boolean {
         return taskTrackerDao.isTaken(username)
     }
-//    fun isAvailable(taskName:String):Boolean{
-//        return taskTrackerDao.isAvailable(taskName)
-//    }
+    fun isAvailable(taskName:String):Boolean{
+        return taskTrackerDao.isAvailable(taskName)
+    }
 
     fun getUsername(username: String, pwd: String): String {
         return taskTrackerDao.getUsername(username, pwd)

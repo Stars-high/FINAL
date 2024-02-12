@@ -11,8 +11,8 @@ interface TaskTrackerDAO {
     @Query("SELECT EXISTS(SELECT * FROM User WHERE username = :username)")
     fun isTaken(username: String): Boolean
 
-//    @Query("SELECT EXISTS(SELECT * FROM Task WHERE task_name=:TaskName")
-//    fun isAvailable(task_name:String):Boolean
+    @Query("SELECT EXISTS(SELECT * FROM Task WHERE task_name=:taskName)")
+    fun isAvailable(taskName:String):Boolean
 
     @Query("Select username from User where username = :username and user_password = :pwd")
     fun getUsername(username: String, pwd: String): String
