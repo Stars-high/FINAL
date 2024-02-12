@@ -19,7 +19,7 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     // var taskList: MutableLiveData<List<Task>> = repo.allTasks as MutableLiveData<List<Task>>
     var isUserAdded = MutableLiveData<Boolean>(false)
     var taskList = repo.getTasks()
-
+    var uname = ""
 
 
     fun insertUser(user: User) {
@@ -46,24 +46,55 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun deleteTask(position: Int) {
 
-        val taskToDelete = taskList.value!!.get(position)
-        viewModelScope.launch(Dispatchers.Default) {
-           repo.deleteTask(taskToDelete)
+    fun getTaskByPriority(priority: String): LiveData<List<Task>> {
+        return repo.getTaskByPriority(priority)
+    }
+
+
+    fun searchTask(query: String?): LiveData<Task> {
+        return repo.searchTask(query)
+    }
+
+    fun getAllTasks(username: String): LiveData<MutableList<Task>>? {
+        return repo.getAllTasks(username)
+    }
+
+    fun deleteTaskByTName(username: String, taskName: String){
+        repo.deleteTaskByTName(username, taskName)
+    }
+
+
+}
+
+
+
+    /*fun deleteTask(position: Int) {
+        var taskList = repo.getAllTasks(uname)
+        val taskToDelete = taskList?.value?.get(position)
+
+        if(taskToDelete!=null){
+            repo.deleteTask(taskToDelete)
         }
+        else{
+            throw Exception("Couldn't Delete")
+        }
+    }
+
+    fun deleteTaskByTName(username: String, taskName: String){
+        repo.deleteTaskByTName(username, taskName)
     }
 
 
 
-    var highPriorityTasks: LiveData<List<Task>> = repo.highPriorityTasks()
+
 
 
 
 
 }
 
-/*fun searchTask(query: String): LiveData<List<Task>>{
+fun searchTask(query: String): LiveData<List<Task>>{
         return repo.searchTask(query)
     }
 
@@ -80,9 +111,9 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     }
     fun getAllTasks(): MutableLiveData<List<Task>>{
         return taskList
-    }*/
+    }
 
-/*object DataObject {
+object DataObject {
     var listData= mutableListOf<Task>()
 
     fun getData(pos:Int):Task{

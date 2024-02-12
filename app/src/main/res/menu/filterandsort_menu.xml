@@ -9,6 +9,9 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
+        android:id="@+id/showAll"
+        android:title="Show All tasks" />
+    <item
         android:id="@+id/priority_item_high"
         android:title="Sort by High Priority " />
     <item

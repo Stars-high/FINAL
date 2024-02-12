@@ -24,13 +24,36 @@ interface TaskTrackerDAO {
     fun getAllTasks(): LiveData<List<Task>>
 
 
-    @Delete
+    @Query("SELECT * FROM Task WHERE task_priority= :priority")
+    fun getTaskByPriority(priority: String): LiveData<List<Task>>
+
+    @Query("SELECT * FROM Task WHERE task_name LIKE '%' || :searchQuery || '%'")
+    fun searchTask(searchQuery: String?): LiveData<Task>
+
+
+    @Query("SELECT * FROM Task where username = :username")
+    fun getAllTasks(username: String): LiveData<MutableList<Task>>?
+
+
+    @Query("DELETE FROM Task WHERE username = :username and task_name = :taskName")
+    fun deleteTaskByTName(username: String, taskName: String)
+
+
+}
+
+
+
+   /* @Delete
     fun deleteTask(task: Task)
 
 
-    @Query("SELECT * from  Task WHERE task_priority= 'HIGH'")
-    fun getHighPriorityTasks():LiveData<List<Task>>
-/*
+
+    @Query("DELETE FROM Task WHERE username = :username and task_name = :taskName")
+    fun deleteTaskByTName(username: String, taskName: String)
+
+
+
+
 
 @Query("SELECT * FROM Task WHERE task_name LIKE :task")
     fun searchTask(searchQuery: String): LiveData<List<Task>>
@@ -49,4 +72,3 @@ interface TaskTrackerDAO {
 
     @Query("SELECT * FROM Task WHERE task_name LIKE :task")
     fun searchTask(searchQuery: String): LiveData<List<Task>>*/
-}
