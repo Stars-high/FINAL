@@ -180,6 +180,10 @@ class TaskCreateActivity : AppCompatActivity() {
                 showSnackbar("Description cannot be empty")
                 false
             }
+//            taskVM.isAvailable(taskName)->{
+//                showSnackbar("Task Name already exists")
+//                false
+//            }
 
             else -> true
         }

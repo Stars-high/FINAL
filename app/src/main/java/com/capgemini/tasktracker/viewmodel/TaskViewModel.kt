@@ -31,6 +31,9 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     fun isTaken(username: String): Boolean {
         return repo.isTaken(username)
     }
+//    fun isAvailable(taskName:String):Boolean{
+//        return repo.isAvailable(taskName)
+//    }
 
     fun getUsername(username: String, pwd: String): String {
         return repo.getUsername(username, pwd)

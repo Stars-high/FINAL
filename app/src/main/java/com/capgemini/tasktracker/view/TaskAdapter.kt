@@ -55,7 +55,7 @@ class TaskAdapter(val taskList: List<Task>) :
             intent.putExtra("taskName",task.taskName)
             intent.putExtra("description",task.description)
             intent.putExtra("startDate",task.startDate)
-            intent.putExtra("Enddate",task.endDate)
+            intent.putExtra("endDate",task.endDate)
             holder.itemView.context.startActivity(intent)
         }
     }

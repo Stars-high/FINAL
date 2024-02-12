@@ -50,7 +50,7 @@ class TaskDisplayActivity : AppCompatActivity() {
 
         updateButton.setOnClickListener {
             val intent = Intent(this, TaskUpdateActivity::class.java)
-            //intent.putExtra("id", pos)
+            intent.putExtra("taskName",taskName)
             startActivity(intent)
         }
         }
