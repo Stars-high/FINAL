@@ -30,6 +30,9 @@ interface TaskTrackerDAO {
 
     @Query("SELECT * from  Task WHERE task_priority= 'HIGH'")
     fun getHighPriorityTasks():LiveData<List<Task>>
+
+    @Query("SELECT * FROM Task where username = :username and task_name = :taskName")
+    fun getTaskByTName(username: String, taskName: String): LiveData<Task>
 /*
 
 @Query("SELECT * FROM Task WHERE task_name LIKE :task")

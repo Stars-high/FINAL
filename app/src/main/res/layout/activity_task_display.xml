@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/create_title"
-        android:layout_width="345dp"
-        android:layout_height="88dp"
+        android:layout_width="347dp"
+        android:layout_height="62dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
@@ -17,14 +17,14 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/cross_button"
+        app:layout_constraintEnd_toStartOf="@+id/crossB"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/create_desc"
-        android:layout_width="376dp"
-        android:layout_height="295dp"
+        android:id="@+id/descTv"
+        android:layout_width="373dp"
+        android:layout_height="221dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="5dp"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <Button
-        android:id="@+id/cross_button"
+        android:id="@+id/crossB"
         android:layout_width="42dp"
         android:layout_height="41dp"
         android:layout_marginTop="16dp"
@@ -45,40 +45,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/updat_button"
+        android:id="@+id/updateB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="162dp"
-        android:text="Edit"
+        android:text="Update"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_desc" />
+        app:layout_constraintTop_toBottomOf="@+id/descTv" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="20dp"
         android:text="Description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/startDateTv" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="20dp"
         android:text="Start Date"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_title" />
 
     <TextView
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/startDateTv"
         android:layout_width="128dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
@@ -95,14 +96,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="20dp"
         android:text="End Date "
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/create_title" />
 
     <TextView
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/endDateTv"
         android:layout_width="133dp"
         android:layout_height="48dp"
         android:layout_marginStart="76dp"
@@ -111,6 +112,6 @@
         android:inputType="textPersonName"
         android:text="End Date"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintStart_toEndOf="@+id/startDateTv"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>
