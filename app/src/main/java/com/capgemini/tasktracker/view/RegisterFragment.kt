@@ -96,15 +96,15 @@ class RegisterFragment : Fragment() {
                     Snackbar.make(requireView(), "Password must contain atleast one special character", Snackbar.LENGTH_LONG).show()
 
                 }
-                !pwd1.any{it in "a..z"}->{
+                !pwd1.any{it in 'a'..'z'}->{
 
                     Snackbar.make(requireView(), "Password must contain atleast one lowercase", Snackbar.LENGTH_LONG).show()
                 }
-                !pwd1.any{it in "A..Z"}->{
+                !pwd1.any{it in 'A'..'Z'}->{
 
                     Snackbar.make(requireView(), "Password must contain atleast one uppercase", Snackbar.LENGTH_LONG).show()
                 }
-                pwd1.length<8->{
+                pwd1.length<4->{
 
                     Snackbar.make(requireView(), "Password must contain atleast 8 character", Snackbar.LENGTH_LONG).show()
                 }
