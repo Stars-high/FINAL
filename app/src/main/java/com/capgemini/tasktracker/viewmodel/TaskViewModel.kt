@@ -54,9 +54,7 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun getTaskByTName(username: String, taskName: String): LiveData<Task>{
-        return repo.getTaskByTName(username, taskName)
-    }
+
 
     var highPriorityTasks: LiveData<List<Task>> = repo.highPriorityTasks()
 
@@ -84,21 +82,19 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
         return taskList
     }*/
 
-object DataObject {
-    var listData = mutableListOf<Task>()
+/*object DataObject {
+    var listData= mutableListOf<Task>()
 
-    fun getData(pos: Int): Task {
+    fun getData(pos:Int):Task{
         return listData[pos]
     }
-
-    fun deleteData(pos: Int) {
+    fun deleteData(pos: Int){
         listData.removeAt(pos)
     }
-
-    fun updateData(pos: Int, task: String, priority: String, desc: String) {
-        listData[pos].taskName = task
-        listData[pos].priority = priority
-        listData[pos].description = desc
+    fun updateData(pos: Int,task:String,priority:String,desc:String){
+        listData[pos].taskName=task
+        listData[pos].priority=priority
+        listData[pos].description=desc
     }
-}
 
+ */

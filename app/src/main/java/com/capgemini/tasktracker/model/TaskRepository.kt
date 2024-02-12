@@ -60,9 +60,6 @@ class TaskRepository(application: Application) {
        return taskTrackerDao.getHighPriorityTasks()
     }
 
-    fun getTaskByTName(username: String, taskName: String): LiveData<Task>{
-        return taskTrackerDao.getTaskByTName(username, taskName)
-    }
 
 }
 
