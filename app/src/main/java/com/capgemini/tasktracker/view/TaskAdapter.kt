@@ -53,6 +53,9 @@ class TaskAdapter(val taskList: List<Task>) :
             val intent= Intent(holder.itemView.context, TaskDisplayActivity::class.java)
             intent.putExtra("taskId",position)
             intent.putExtra("taskName",task.taskName)
+            intent.putExtra("description",task.description)
+            intent.putExtra("startDate",task.startDate)
+            intent.putExtra("Enddate",task.endDate)
             holder.itemView.context.startActivity(intent)
         }
     }
