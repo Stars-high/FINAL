@@ -123,15 +123,6 @@ class TaskCreateActivity : AppCompatActivity() {
         radioGroup=findViewById(R.id.radioGroup)
 
 
-        /*radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val selectedRadioButton = findViewById<RadioButton>(checkedId)
-           var priority = selectedRadioButton.tag.toString()
-
-
-        }
-        *
-         */
-
         val selectedradioButtonId=radioGroup.checkedRadioButtonId
         if(selectedradioButtonId !=-1){
             val selectedRadioButton=findViewById<RadioButton>(selectedradioButtonId)
