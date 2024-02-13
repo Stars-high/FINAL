@@ -44,10 +44,15 @@ class TaskAdapter(var listOfTask: MutableList<Task>?) : RecyclerView.Adapter<Tas
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, TaskDisplayActivity::class.java)
-            intent.putExtra("taskName", task.taskName)
+            val intent= Intent(holder.itemView.context, TaskDisplayActivity::class.java)
+            intent.putExtra("taskId",position)
+            intent.putExtra("taskName",task.taskName)
+            intent.putExtra("description",task.description)
+            intent.putExtra("startDate",task.startDate)
+            intent.putExtra("endDate",task.endDate)
             holder.itemView.context.startActivity(intent)
         }
+
     }
     private fun changeColour(checked: Boolean,holder: TaskHolder) {
         if (checked == true)
