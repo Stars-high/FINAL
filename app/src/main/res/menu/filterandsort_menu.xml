@@ -13,10 +13,10 @@
         android:title="Show All tasks" />
     <item
         android:id="@+id/priority_item_high"
-        android:title="Sort by High Priority " />
+        android:title="Show High Priority " />
     <item
         android:id="@+id/priority_item_low"
-        android:title="Sort by LowPriority" />
+        android:title="Show Low Priority" />
     <item
         android:id="@+id/logout"
         android:title="Logout" />

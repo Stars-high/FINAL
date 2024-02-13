@@ -29,7 +29,7 @@ class TaskDisplayActivity : AppCompatActivity() {
         endDateTv=findViewById(R.id.endDateTv)
         desc=findViewById(R.id.descTv)
         crossButton=findViewById(R.id.crossB)
-        updateButton=findViewById(R.id.updateB)
+        //updateButton=findViewById(R.id.updateB)
 
 
         val pos = intent.getIntExtra("id", -1)
@@ -47,12 +47,6 @@ class TaskDisplayActivity : AppCompatActivity() {
             myIntent()
      }
 
-
-        updateButton.setOnClickListener {
-            val intent = Intent(this, TaskUpdateActivity::class.java)
-            intent.putExtra("taskName",taskName)
-            startActivity(intent)
-        }
         }
         fun myIntent() {
             val intent = Intent(this, TaskListActivity::class.java)
