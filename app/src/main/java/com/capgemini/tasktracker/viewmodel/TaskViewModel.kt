@@ -15,11 +15,16 @@ import kotlinx.coroutines.launch
 class TaskViewModel(application: Application): AndroidViewModel(application) {
     //owns repository
     private val repo = TaskRepository(application)
+    lateinit var uname:String
 
     // var taskList: MutableLiveData<List<Task>> = repo.allTasks as MutableLiveData<List<Task>>
     var isUserAdded = MutableLiveData<Boolean>(false)
-    var taskList = repo.getTasks()
 
+    //var taskList = repo.getTasks()
+    fun getAllTasks(username: String): LiveData<MutableList<Task>>? {
+        uname = username
+        return repo.getAllTasks(username)
+    }
 
 
     fun insertUser(user: User) {
@@ -31,7 +36,8 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     fun isTaken(username: String): Boolean {
         return repo.isTaken(username)
     }
-    fun isAvailable(taskName:String):Boolean{
+
+    fun isAvailable(taskName: String): Boolean {
         return repo.isAvailable(taskName)
     }
 
@@ -49,7 +55,7 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun deleteTask(position: Int) {
+    /*fun deleteTask(position: Int) {
 
         val taskToDelete = taskList.value!!.get(position)
         viewModelScope.launch(Dispatchers.Default) {
@@ -57,13 +63,35 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+     */
+
+    fun searchTask(query: String?): LiveData<Task> {
+        return repo.searchTask(query)
+    }
+
+    fun deleteTaskByTName(username: String, taskName: String) {
+        repo.deleteTaskByTName(username, taskName)
+    }
 
 
-    var highPriorityTasks: LiveData<List<Task>> = repo.highPriorityTasks()
+    fun getTaskByPriority(priority: String): LiveData<List<Task>> {
+        return repo.getTaskByPriority(priority)
+    }
+
+    //var highPriorityTasks: LiveData<List<Task>> = repo.highPriorityTasks()
+
+    fun deleteTask(position: Int) {
+        var taskList = repo.getAllTasks(uname)
+        val taskToDelete = taskList?.value?.get(position)
+
+        if (taskToDelete != null) {
+            repo.deleteTask(taskToDelete)
+        } else {
+            throw Exception("Couldn't Delete")
+        }
 
 
-
-
+    }
 }
 
 /*fun searchTask(query: String): LiveData<List<Task>>{
@@ -101,3 +129,4 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     }
 
  */
+

@@ -13,8 +13,13 @@ class TaskRepository(application: Application) {
 //        allTasks = taskTrackerDao.getAllTasks()
     }
 
+
+    fun getAllTasks(username: String): LiveData<MutableList<Task>>? {
+        return taskTrackerDao.getAllTasks(username)
+    }
+
     fun insertUser(user: User): Boolean {
-        var isAdded = false
+        var isAdded =false
         try {
             taskTrackerDao.insertUser(user)
             isAdded = true
@@ -44,27 +49,47 @@ class TaskRepository(application: Application) {
         taskTrackerDao.insertTask(task)
     }
 
-    fun getTasks(): LiveData<List<Task>> {
+    //fun getTasks(): LiveData<List<Task>> {
 
-        return taskTrackerDao.getAllTasks()
+      //  return taskTrackerDao.getAllTasks()
 
-    }
+    //}
 
 
-    suspend fun deleteTask(task: Task) {
+ /*   suspend fun deleteTask(task: Task) {
         taskTrackerDao.deleteTask(task)
     }
 
+  */
+
+    fun deleteTaskByTName(username: String, taskName: String){
+        taskTrackerDao.deleteTaskByTName(username, taskName)
+    }
+
+    fun deleteTask(task: Task){
+        taskTrackerDao.deleteTask(task)
+    }
+
+    fun getTaskByPriority(priority: String): LiveData<List<Task>>{
+        return taskTrackerDao.getTaskByPriority(priority)
+    }
+    fun searchTask(query: String?): LiveData<Task>{
+        return taskTrackerDao.searchTask(query)
+    }
 
 
-
-    fun highPriorityTasks():LiveData<List<Task>>
+   /* fun highPriorityTasks():LiveData<List<Task>>
     {
        return taskTrackerDao.getHighPriorityTasks()
     }
 
+    */
+
+
+
 
 }
+
 
 
 

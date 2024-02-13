@@ -14,7 +14,7 @@
         android:layout_marginTop="4dp"
         android:background="#F1CCC1"
         android:fontFamily="@font/open_sans_light"
-        android:text="Task List"
+        android:text="@string/Task_list"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
